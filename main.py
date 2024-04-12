@@ -193,9 +193,10 @@ while True:
         x = x * 1.414  # gives value of 1 for full thrust forward and backwards
 
     # rotate x and y-axis of joystick 45 degrees
-    x_new = (x * math.sin(math.pi / -4)) + (y * math.cos(math.pi / -4))  # horizontal left
-    y_new = (x * math.cos(math.pi / -4)) - (y * math.sin(math.pi / -4))  # horizontal right
 
+    x_new = (x * math.sin(math.pi / -4)) + (y * math.cos(math.pi / -4))  # horizontal left inverted x and y to correct the direction
+    y_new = (x * math.cos(math.pi / -4)) - (y * math.sin(math.pi / -4))  # horizontal right 
+    
 
     # limits joystick values to +/- 1
     if x_new > 1:
