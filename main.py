@@ -56,7 +56,7 @@ leftUpText = font.render("Left Up", True, (255, 255, 255))
 rightUpText = font.render("Right Up", True, (255, 255, 255))
 
 # open serial com to Arduino
-ser = serial.Serial(port='COM3', baudrate=9600, timeout=.1, dsrdtr=True)
+ser = serial.Serial(port='COM12', baudrate=9600, timeout=.1, dsrdtr=True)
 # dsrdtr=True stops Arduino Mega from auto resetting
 
 trigger_button = [False, False]  # Initialize False Boolean values for Left Button and Right Button
@@ -66,7 +66,8 @@ trigger_button = [False, False]  # Initialize False Boolean values for Left Butt
 x_y_button = [False, False]
 # setup for spare servo motor; Initialize False Boolean values for X (button 1) and Y button (button 3)
 # Initialize min/max and clawValues
-max_value = 60  # After initial tests with the claw, 0-65 is the ideal safe operating range for the claw (0 = fully closed, 65 = fully opened.)
+max_value = 90
+rotate_max_value = 180  # After initial tests with the claw, 0-65 is the ideal safe operating range for the claw (0 = fully closed, 65 = fully opened.)
 min_value = 0
 clawValue = 0
 rotateValue = 0
@@ -159,8 +160,8 @@ while True:
     if rotateValue < min_value:
         rotateValue = min_value
     # Limit value to maximum; Establishs ceiling condition for second servo motor
-    if rotateValue > 100:
-        rotateValue = 100
+    if rotateValue > rotate_max_value:
+        rotateValue = rotate_max_value
 
     '''
     Archived Code: Repeated button presses to Open and Close the claw
@@ -194,8 +195,8 @@ while True:
 
     # rotate x and y-axis of joystick 45 degrees
 
-    x_new = (x * math.sin(math.pi / -4)) + (y * math.cos(math.pi / -4))  # horizontal left inverted x and y to correct the direction
-    y_new = (x * math.cos(math.pi / -4)) - (y * math.sin(math.pi / -4))  # horizontal right 
+    x_new = -(x * math.sin(math.pi / -4)) - (y * math.cos(math.pi / -4))  # horizontal left inverted x and y to correct the direction
+    y_new = -(x * math.cos(math.pi / -4)) + (y * math.sin(math.pi / -4))  # horizontal right 
     
 
     # limits joystick values to +/- 1
