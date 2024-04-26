@@ -56,7 +56,7 @@ leftUpText = font.render("Left Up", True, (255, 255, 255))
 rightUpText = font.render("Right Up", True, (255, 255, 255))
 
 # open serial com to Arduino
-ser = serial.Serial(port='COM12', baudrate=9600, timeout=.1, dsrdtr=True)
+ser = serial.Serial(port='COM7', baudrate=9600, timeout=.1, dsrdtr=True)
 # dsrdtr=True stops Arduino Mega from auto resetting
 
 trigger_button = [False, False]  # Initialize False Boolean values for Left Button and Right Button
@@ -195,8 +195,8 @@ while True:
 
     # rotate x and y-axis of joystick 45 degrees
 
-    x_new = -(x * math.sin(math.pi / -4)) - (y * math.cos(math.pi / -4))  # horizontal left inverted x and y to correct the direction
-    y_new = -(x * math.cos(math.pi / -4)) + (y * math.sin(math.pi / -4))  # horizontal right 
+    x_new = -(x*(math.pi/4)) + (y*(math.pi/4))
+    y_new = (x*(math.pi/4)) + (y*(math.pi/4))
     
 
     # limits joystick values to +/- 1
